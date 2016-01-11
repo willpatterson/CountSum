@@ -61,3 +61,7 @@ def threshold(directory, args, which):
 
 def raw_sum(directory):
     count_sum.write_files(count_sum.get_file_data(directory))
+
+
+if __name__ == '__main__':
+    main()
