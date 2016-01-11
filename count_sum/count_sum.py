@@ -9,9 +9,9 @@ import os
 import collections
 import argparse
 
-def sum_files(file_one, file_two):
+def sum_files(file_1, file_2):
     """Sum every count value in the two files"""
-    with open(file_one, 'r') as fone, open(file_two, 'r') as ftwo:
+    with open(file_1, 'r') as fone, open(file_2, 'r') as ftwo:
         gene_dict_one = collections.OrderedDict()
         gene_dict_two = collections.OrderedDict()
         for line in fone:
@@ -22,33 +22,44 @@ def sum_files(file_one, file_two):
             split_line_two = tline.split("\t")
             gene_dict_two[split_line_two[0]] = int(split_line_two[1])
 
-    #master = collections.OrderedDict()
     DataRow = namedtuple('DataRow', ['name', 'count_val'])
     for name, value in gene_dict_one.items():
-        #yield "{name}\t{sum}\n".format(name=name, sum= value+ gene_dict_two[name])
         yield (DataRow(name=name, count_val=value + gene_dict_two[name]))
 
-    """
-    raw_file_name_one = os.path.basename(file_one)
-    raw_file_name_two = os.path.basename(file_two)
-    for name,
-    return (raw_file_name_one + raw_file_name_two + "_counts.txt" , master)
-    """
+def write_raw_sums(dir_path):
+    write_files(get_file_data(dir_path))
 
-
-
-def zero_all(dir_path):
+def zero_all(dir_path, delete_flag=False):
     sumed_data = get_file_data(dir_path)
 
     for file_data in sumed_data:
         for name, value in file_data.data_set.items():
             if value == 0:
                 for data in sumed_data:
-                    data[name] = 0
+                    if delete_flag is False:
+                        data.data_set[name] = 0
+                    else:
+                        del data.data_set[name]
 
-    write_file(sumed_data)
+    write_files(sumed_data)
 
-def average_all(dir_path, threshold):
+def sum_greater_than(dir_path, threshold, delete_flag=False):
+    sumed_data = get_file_data(dir_path)
+    for name, value in sumed_data[0].data_set.items():
+        count_sum = value
+        for file_data in sumed_data[1:]:
+            count_sum += file_data.data_set[name]
+            count += 1
+        if count_sum < threshold:
+            for file_data in sumed_data:
+                if delete_flag is False:
+                    file_data.data_set[name] = 0
+                else:
+                    del file_data.data_set[name]
+
+    write_files(sumed_data)
+
+def average_all(dir_path, threshold, delete_flag=False):
     sumed_data = get_file_data(dir_path)
     for name, value in sumed_data[0].data_set.items():
         count_sum = value
@@ -59,21 +70,24 @@ def average_all(dir_path, threshold):
         average = count_sum/count
         if average < threshold:
             for file_data in sumed_data:
-                file_data.data_set[name] = 0
+                if delete_flag is False:
+                    file_data.data_set[name] = 0
+                else:
+                    del file_data.data_set[name]
 
-    write_file(sumed_data)
+    write_files(sumed_data)
 
 def open_count_files(dir_path):
-    """Generates files from dirpath"""
+    """Generates file paths from the specified directory path"""
     dir_list = os.listdir(dir_path)
     for item in dir_list:
-        item_path = dir_path + '/' + item
+        item_path = os.path.join(dir_path, item)
         if os.path.isdir(item_path):
             count_files = os.listdir(item_path)
             if len(count_files) == 2:
                 yield (os.path.join(item_path, count_files[0]), os.path.join(item_path, count_files[1]))
 
-def write_file(sumed_data):
+def write_files(sumed_data):
     out_path = os.path.join(dir_path, 'out')
     try:
         os.makedirs(out_path)
