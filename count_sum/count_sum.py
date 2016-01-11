@@ -1,3 +1,10 @@
+"""
+File Name: Count_sum.py
+Author   : William Patterson
+Email    : wpatt2@pdx.edu
+
+Description:
+"""
 import os
 import collections
 import argparse
@@ -16,12 +23,16 @@ def sum_files(file_one, file_two):
             gene_dict_two[split_line_two[0]] = int(split_line_two[1])
 
     master = collections.OrderedDict()
-    for item in gene_dict_one.items():
-        master[item[0]] = item[1] + gene_dict_two[item[0]]
+    for name, value in gene_dict_one.items():
+        #yield "{name}\t{sum}\n".format(name=name, sum= value+ gene_dict_two[name])
+        yield (name, value + gene_dict_two[name])
 
+    """
     raw_file_name_one = os.path.basename(file_one)
     raw_file_name_two = os.path.basename(file_two)
+    for name,
     return (raw_file_name_one + raw_file_name_two + "_counts.txt" , master)
+    """
 
 
 def open_count_files(dir_path):
@@ -42,6 +53,8 @@ def count_comparison(dir_path):
 
     #get the average of all of the lines in every file 
     #If it is under a cirtain threshold, replace with zeros
+
+    #Zero All data
     for data_set in sumed_data:
         for item in data_set[1].items():
             if item[1] == 0: #
