@@ -27,9 +27,11 @@ def sum_files(file_1, file_2):
         yield (DataRow(name=name, count_val=value + gene_dict_two[name]))
 
 def write_raw_sums(dir_path):
+    print("raw sums")
     write_files(get_file_data(dir_path))
 
 def zero_all(dir_path, delete_flag=False):
+    print("zero all")
     sumed_data = get_file_data(dir_path)
 
     for file_data in sumed_data:
@@ -41,9 +43,11 @@ def zero_all(dir_path, delete_flag=False):
                     else:
                         del data.data_set[name]
 
-    write_files(sumed_data)
+    #write_files(sumed_data)
+    return sumed_data
 
 def sum_greater_than(dir_path, threshold, delete_flag=False):
+    print("greater than")
     sumed_data = get_file_data(dir_path)
     for name, value in sumed_data[0].data_set.items():
         count_sum = value
@@ -57,9 +61,11 @@ def sum_greater_than(dir_path, threshold, delete_flag=False):
                 else:
                     del file_data.data_set[name]
 
-    write_files(sumed_data)
+    #write_files(sumed_data)
+    return sumed_data
 
 def average_all(dir_path, threshold, delete_flag=False):
+    print("average all")
     sumed_data = get_file_data(dir_path)
     for name, value in sumed_data[0].data_set.items():
         count_sum = value
@@ -75,7 +81,8 @@ def average_all(dir_path, threshold, delete_flag=False):
                 else:
                     del file_data.data_set[name]
 
-    write_files(sumed_data)
+    #write_files(sumed_data)
+    return sumed_data
 
 def open_count_files(dir_path):
     """Generates file paths from the specified directory path"""
@@ -88,6 +95,7 @@ def open_count_files(dir_path):
                 yield (os.path.join(item_path, count_files[0]), os.path.join(item_path, count_files[1]))
 
 def write_files(sumed_data):
+    print("whoo")
     out_path = os.path.join(dir_path, 'out')
     try:
         os.makedirs(out_path)
