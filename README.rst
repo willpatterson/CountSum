@@ -33,7 +33,7 @@ For CountSum to process your count files, all count file pairs to be summed need
 
 ::
 
-    count_files: 
+    master 
     | 
     ++-Subdir_1 
     |   | 
