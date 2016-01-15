@@ -10,9 +10,9 @@ CountSum can preform a stand-alone sum operation or a sum operation with a choic
 Filters:
 ========
 
-1. zero      -- Filter if a gene count has a value of zero in any summed count pair.
-2. average   -- Filter if the average count value of all congruent genes across all files is under a specified threshold.
-3. less_than -- Filter if the total sum of all congruent genes across all files is under a specified threshold.
+1. **zero**      -- Filter if a gene count has a value of zero in any summed count pair.
+2. **average**   -- Filter if the average count value of all congruent genes across all files is under a specified threshold.
+3. **less_than** -- Filter if the total sum of all congruent genes across all files is under a specified threshold.
 
 Installation: 
 =============
