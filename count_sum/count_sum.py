@@ -26,7 +26,7 @@ def zero_all(dir_path, delete_flag=False):
 
     return sumed_data
 
-def sum_greater_than(dir_path, threshold, delete_flag=False):
+def less_than(dir_path, threshold, delete_flag=False):
     sumed_data = get_file_data(dir_path)
     for name, value in sumed_data[0].data_set.items():
         count_sum = value
