@@ -1,18 +1,22 @@
 """
-File Name: Count_sum.py
+File Name: count_sum.py
 Author   : William Patterson
-Email    : wpatt2@pdx.edu
+Co-Author: Amie Romney
+Email    : wpatt2@pdx.edu, arom2@pdx.edu
 
 Description:
+This script module provides functions to load, sum, and filter genetic count files
 """
+
 import os
 from collections import OrderedDict, namedtuple
-import argparse
 
 def write_raw_sums(dir_path):
+    """Sums and writes count file pairs"""
     write_files(get_file_data(dir_path))
 
 def zero_all(dir_path, delete_flag=False):
+    """Filters for zeros"""
     sumed_data = get_file_data(dir_path)
 
     for file_data in sumed_data:
@@ -27,6 +31,7 @@ def zero_all(dir_path, delete_flag=False):
     return sumed_data
 
 def less_than(dir_path, threshold, delete_flag=False):
+    """Gets the total count for a gene and filters if its lower than threshold"""
     sumed_data = get_file_data(dir_path)
     for name, value in sumed_data[0].data_set.items():
         count_sum = value
@@ -42,6 +47,7 @@ def less_than(dir_path, threshold, delete_flag=False):
     return sumed_data
 
 def average_all(dir_path, threshold, delete_flag=False):
+    """Gets the average count for a gene and filters if its lower than threshold"""
     sumed_data = get_file_data(dir_path)
     for name, value in sumed_data[0].data_set.items():
         count_sum = value
@@ -125,6 +131,3 @@ def get_file_data(dir_path):
 
     return sumed_data
 
-
-if __name__ == "__main__":
-    pass

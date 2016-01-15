@@ -1,14 +1,26 @@
+"""
+File Name: __main__.py
+Author   : William Patterson
+Co-Author: Amie Romney
+Email    : wpatt2@pdx.edu, arom2@pdx.edu
+
+Description:
+This python script is the command line interface for CountSum(count_sum.py).
+"""
+
 import argparse
 
 import os, sys
 sys.path.append(os.path.abspath(".."))
 
-from count_sum import count_sum as count_sum
+from count_sum import count_sum
 
 def description():
+    """Return the description string"""
     return "Sums and preforms operations on count files with two rows when ROW_1 is the name and ROW_2 is the count value"
 
 def main(args=None):
+    """Main argument function that creates and handles the subparsers"""
     if args is None:
         if (sys.argv[1] == "-h") or (sys.argv[1] == "--help"):
             print(description())
@@ -52,18 +64,21 @@ def main(args=None):
         print("Usage: /path/to/dir {zero, sum, less_than, average}")
 
 def common_args():
+    """Creates the parser with common args for zero and threshold"""
     parser = argparse.ArgumentParser(description=description())
     parser.add_argument("directory", help="Directory containing sub directories with count files")
     parser.add_argument("-d", "--delete", action="store_true", dest='del_flag', default=False, help="Deleted Flagged lines")
     return parser
 
 def zero(args):
+    """Parser for the zero filter"""
     parser = common_args()
     parsed_args = parser.parse_args(args)
 
     count_sum.write_files(count_sum.zero_all(parsed_args.directory, delete_flag=parsed_args.del_flag))
 
 def threshold(args, which):
+    """Parser for the less_than and average filter"""
     parser = common_args()
     parser.add_argument("threshold", type=int, help="Count threshold")
     parsed_args = parser.parse_args(args)
@@ -78,6 +93,7 @@ def threshold(args, which):
                                                     delete_flag=parsed_args.del_flag))
 
 def raw_sum(args):
+    """Argument parser for summing count files"""
     parser = argparse.ArgumentParser(description=description())
     parser.add_argument("directory", help="Directory containing sub directories with count files")
     parsed_args = parser.parse_args(args)
