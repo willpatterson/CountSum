@@ -2,7 +2,7 @@
 CountSum
 ********
 
-Requires: Python 3
+**Requires:** Python 3
 
 CountSum is a small python application used to sum and filter the contents of genetic count files. 
 CountSum can preform a stand-alone sum operation or a sum operation with a choice of filter.
