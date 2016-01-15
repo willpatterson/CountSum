@@ -31,17 +31,19 @@ Usage:
 **Count File Directory Structure:**
 For CountSum to process your count files, all count file pairs to be summed need to be in their own directories. To filter all of the summed pairs at once, place the directories containing pairs into one master directory to pass into CountSum. Any subdirectory containing more than two files will be discounted. See the chart below for reference:
 
-count_files:
-|
-++-Subdir_1
-|   |
-|   +-Count_file_1
-|   +-Count_file_2
-|
-++-Subdir_2
-|   |
-|   +-Count_file_1.1
-|   +-Count_file_2.1
+::
+
+    count_files: 
+    | 
+    ++-Subdir_1 
+    |   | 
+    |   +-Count_file_1 
+    |   +-Count_file_2
+    |
+    ++-Subdir_2
+    |   |
+    |   +-Count_file_1.1
+    |   +-Count_file_2.1
 
 
 Examples:
